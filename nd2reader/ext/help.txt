@@ -1,0 +1,2 @@
+If this directory is empty, you need to download the SDK files from 
+https://www.nd2sdk.com/. Please consult the project README for help.
