@@ -1,2 +1,6 @@
-nd2reader/ext/*
-!nd2reader/ext/help.txt
+tbx/nd2reader/ext/*
+!tbx/nd2reader/ext/help.txt
+
+
+tests/*.*
+!tests/*.m
