@@ -2,11 +2,16 @@
 clearvars
 clc
 
+fn = 'D:\Projects\nd2sdk-matlab\test.nd2';
+%fn = 'D:\Projects\2020Feb Photodamage\data\ChannelRed,Cy5,RFP_Seq0000.nd2';
+%fn = 'D:\Projects\2019Dec Kralj Diauxic PEC\Data\20200317 100x_lacZ_glugal\20200317_100x_lacZ_glugal.nd2';
+
+
 if not(libisloaded('nd2readsdk'))
     loadlibrary('nd2readsdk', 'Nd2ReadSdk.h')
 end
 
-p = libpointer('voidPtr', [int16('D:\Projects\nd2sdk-matlab\test.nd2') 0]);
+p = libpointer('voidPtr', [int16(fn) 0]);
 fileHandle = calllib('nd2readsdk', 'Lim_FileOpenForRead', p);
 
 %File attributes
@@ -21,9 +26,11 @@ fileAttributes = jsondecode(fileattrib_str');
 
 calllib('nd2readsdk', 'Lim_FileFreeString', fileattrib);
 % 
+
+
 %Experiment
 fileexpt = calllib('nd2readsdk', 'Lim_FileGetExperiment', fileHandle);
-setdatatype(fileexpt, 'int8Ptr', 1000);
+setdatatype(fileexpt, 'int8Ptr', 10000);
 
 fileexpt_str = fileexpt.Value;
 
@@ -42,7 +49,7 @@ filemd_str = filemd.Value;
 
 filemd_len = find(filemd_str == 0, 1, 'first') - 1;  %Truncate trailing zero
 filemd_str = char(filemd_str(1:filemd_len));
-fileMetadata = jsondecode(filemd_str');
+frameMetadata = jsondecode(filemd_str');
 calllib('nd2readsdk', 'Lim_FileFreeString', filemd);
 
 %Get sequence count
@@ -56,6 +63,21 @@ fileInfo_len = find(fileInfo_str == 0, 1, 'first') - 1;  %Truncate trailing zero
 fileInfo_str = char(fileInfo_str(1:fileInfo_len));
 fileTextInfo = jsondecode(fileInfo_str');
 
+%Get frame metadata
+filemd = calllib('nd2readsdk', 'Lim_FileGetMetadata', fileHandle);
+
+setdatatype(filemd, 'int8Ptr', 50000);
+
+filemd_str = filemd.Value;
+
+filemd_len = find(filemd_str == 0, 1, 'first') - 1;  %Truncate trailing zero
+filemd_str = char(filemd_str(1:filemd_len));
+fileMetadata = jsondecode(filemd_str');
+calllib('nd2readsdk', 'Lim_FileFreeString', filemd);
+
+
+
+
 calllib('nd2readsdk', 'Lim_FileFreeString', fileInfo);
 
 size = calllib('nd2readsdk', 'Lim_FileGetCoordSize', fileHandle);
@@ -63,7 +85,7 @@ size = calllib('nd2readsdk', 'Lim_FileGetCoordSize', fileHandle);
 
 calllib('nd2readsdk', 'Lim_FileClose', fileHandle);
 
-save('metadata.mat', 'fileAttributes', 'fileExperiment', 'fileMetadata', 'fileTextInfo');
+save('metadata.mat', 'fileAttributes', 'fileExperiment', 'fileMetadata', 'frameMetadata', 'fileTextInfo');
 
 
 

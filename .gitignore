@@ -1,6 +1,12 @@
+*.asv
+*.m~
+*.mex*
+*.mltbx
+*.mlappinstall
+*.autosave
+
 tbx/nd2reader/ext/*
 !tbx/nd2reader/ext/help.txt
-
 
 tests/*.*
 !tests/*.m
