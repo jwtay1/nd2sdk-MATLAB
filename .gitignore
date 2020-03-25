@@ -5,6 +5,8 @@
 *.mlappinstall
 *.autosave
 
+*.nd2
+
 tbx/nd2reader/ext/*
 !tbx/nd2reader/ext/help.txt
 
