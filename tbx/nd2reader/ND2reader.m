@@ -37,6 +37,9 @@ classdef ND2reader < handle
         
         channelNames
         
+        pxSize
+        pxUnits        
+        
         loopOrder  %Order that data is stored in
 
     end
@@ -242,6 +245,55 @@ classdef ND2reader < handle
             
         end
         
+        function pxSize = get.pxSize(obj)
+            
+            if obj.fileOpen
+                
+                %Check if all the channels have the same pixel size
+                axesCalibration = cell(1, numel(obj.fileMetadata.channels));
+                for iC = 1:numel(obj.fileMetadata.channels)
+                    axesCalibration{iC} = obj.fileMetadata.channels(iC).volume.axesCalibration;
+                end
+                
+                if all(cellfun(@(x) isequal(axesCalibration{1}, x), axesCalibration))
+                    pxSize = axesCalibration{1}(1:2)';
+                else
+                    pxSize = axesCalibration;
+                end
+                
+            else
+                
+                pxSize = NaN;
+                
+            end
+            
+        end
+        
+        function pxUnits = get.pxUnits(obj)
+            
+            if obj.fileOpen
+                
+                %Check if all the channels have the same pixel size
+                axesIntepretation = cell(1, numel(obj.fileMetadata.channels));
+                for iC = 1:numel(obj.fileMetadata.channels)
+                    axesIntepretation{iC} = obj.fileMetadata.channels(iC).volume.axesInterpretation{1};
+                end
+                
+                if all(cellfun(@(x) isequal('distance', x), axesIntepretation))
+                    pxUnits = 'um';
+                else
+                    pxUnits = axesIntepretation;
+                end
+                
+            else
+                
+                pxUnits = NaN;
+                
+            end
+            
+        end
+        
+        
         function channelNames = get.channelNames(obj)
             
             if obj.fileOpen
@@ -386,6 +438,28 @@ classdef ND2reader < handle
                 
                 if numel(varargin) == 3
                     iXY = varargin{3};
+                else
+                    iXY = 1;
+                end
+                
+                %-- Validate requested coordinates --%
+                
+                %Check that the Z coordinate is valid
+                if iZ > obj.sizeZ || iZ < 1
+                    error('ND2reader:getSeqIndexFromCoords:InvalidZ', ...
+                        'Z position should be between 1 and %.0f', obj.sizeZ)
+                end
+                
+                %Check that the T coordinate is valid
+                if iT > obj.sizeT || iT < 1
+                    error('ND2reader:getSeqIndexFromCoords:InvalidT', ...
+                        'Timepoint should be between 1 and %.0f', obj.sizeT)
+                end
+                
+                %Check that the XY coordinate is valid
+                if iXY > obj.sizeXY || iXY < 1
+                    error('ND2reader:getSeqIndexFromCoords:InvalidXY', ...
+                        'XY position should be between 1 and %.0f', obj.sizeXY)
                 end
                 
                 index = getSeqIndexFromCoords(obj, iZ, iT, iXY);
@@ -394,6 +468,13 @@ classdef ND2reader < handle
                 
                 index = varargin{1};
                 
+                %Validate requested index
+                if index > obj.fileAttributes.sequenceCount || index < 0
+                    error('ND2reader:getImage:InvalidIndex', ...
+                        'Index should be between 1 and %.0f', obj.fileAttributes.sequenceCount);                    
+                end
+                
+                
             else
                 
                 error('ND2reader:getImage:InvalidArgument', ...
@@ -401,6 +482,8 @@ classdef ND2reader < handle
                 
             end
             
+
+                        
                         
             res = calllib('nd2readsdk', 'Lim_FileGetImageData', obj.fileHandle, index, obj.pictureStructPtr);
             

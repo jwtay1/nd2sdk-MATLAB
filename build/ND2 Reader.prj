@@ -1,0 +1,113 @@
+<deployment-project plugin="plugin.toolbox" plugin-version="1.0">
+  <configuration file="D:\Projects\nd2sdk-matlab\code\build\ND2 Reader.prj" location="D:\Projects\nd2sdk-matlab\code\build" name="ND2 Reader" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>ND2 Reader</param.appname>
+    <param.authnamewatermark>Jian Wei Tay</param.authnamewatermark>
+    <param.email>jian.tay@colorado.edu</param.email>
+    <param.company>University of Colorado Boulder</param.company>
+    <param.summary>A class to read ND2 files using the Nikon ND2 SDK</param.summary>
+    <param.description>This toolbox contains the ND2reader class which reads proprietary ND2 files (e.g. from Nikon microscopes). The code uses the official Nikon ND2 SDK which must be downloaded from https://nd2sdk.com (free signup required).
+
+Note: The currently released SDK only has Linux and Windows libraries.</param.description>
+    <param.screenshot>${PROJECT_ROOT}\nd2tbxIcon.png</param.screenshot>
+    <param.version>1.0.0</param.version>
+    <param.output>${PROJECT_ROOT}\ND2 Reader.mltbx</param.output>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.guid>4039bca1-4fa3-4b38-a256-823f9b424257</param.guid>
+    <param.exclude.filters />
+    <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
+    <param.examples />
+    <param.demosxml />
+    <param.apps />
+    <param.registered.apps />
+    <param.docs />
+    <param.getting.started.guide />
+    <param.matlabpath.excludes />
+    <param.javaclasspath.excludes />
+    <param.exported.on.package>false</param.exported.on.package>
+    <param.required.addons />
+    <param.matlab.project.id />
+    <param.matlab.project.name />
+    <param.release.start />
+    <param.release.end />
+    <param.release.current.only>false</param.release.current.only>
+    <param.compatiblity.windows>true</param.compatiblity.windows>
+    <param.compatiblity.macos>false</param.compatiblity.macos>
+    <param.compatiblity.linux>true</param.compatiblity.linux>
+    <param.compatiblity.matlabonline>true</param.compatiblity.matlabonline>
+    <param.installation.map />
+    <param.additional.sw.names />
+    <param.additional.sw.licenses />
+    <param.additional.sw.win.url />
+    <param.additional.sw.mac.url />
+    <param.additional.sw.linux.url />
+    <unset>
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.output />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.exclude.filters />
+      <param.exclude.pcodedmfiles />
+      <param.examples />
+      <param.demosxml />
+      <param.apps />
+      <param.registered.apps />
+      <param.docs />
+      <param.getting.started.guide />
+      <param.matlabpath.excludes />
+      <param.javaclasspath.excludes />
+      <param.exported.on.package />
+      <param.required.addons />
+      <param.matlab.project.id />
+      <param.matlab.project.name />
+      <param.release.current.only />
+      <param.compatiblity.windows />
+      <param.compatiblity.linux />
+      <param.compatiblity.matlabonline />
+      <param.installation.map />
+      <param.additional.sw.names />
+      <param.additional.sw.licenses />
+      <param.additional.sw.win.url />
+      <param.additional.sw.mac.url />
+      <param.additional.sw.linux.url />
+    </unset>
+    <fileset.rootdir>
+      <file>D:\Projects\nd2sdk-matlab\code\tbx</file>
+    </fileset.rootdir>
+    <fileset.rootfiles>
+      <file>D:\Projects\nd2sdk-matlab\code\tbx\nd2reader</file>
+    </fileset.rootfiles>
+    <fileset.depfun.included />
+    <fileset.depfun.excluded />
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}" name="ND2 Reader.mltbx" optional="false">D:\Projects\nd2sdk-matlab\code\build\ND2 Reader.mltbx</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2019a</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
