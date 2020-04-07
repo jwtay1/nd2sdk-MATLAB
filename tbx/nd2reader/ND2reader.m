@@ -42,6 +42,7 @@ classdef ND2reader < handle
         
         loopOrder  %Order that data is stored in
 
+        seriesCount %To provide compatibility with BioformatsImage (actually the same as sizeXY)
     end
     
     properties (Access = private)
@@ -55,6 +56,12 @@ classdef ND2reader < handle
         fileAttributes  %File attributes (e.g. image height, width, number of channels)
         experimentParams  %Information about order of experiment, number of planes
         fileMetadata  %Information about the channels including name and emission wavelength
+        
+    end
+    
+    properties
+       
+        series = 1;
         
     end
     
@@ -293,6 +300,11 @@ classdef ND2reader < handle
             
         end
         
+        function seriesCount = get.seriesCount(obj)
+            
+            seriesCount = obj.sizeXY;
+            
+        end
         
         function channelNames = get.channelNames(obj)
             
@@ -481,9 +493,6 @@ classdef ND2reader < handle
                     'Expected either 3 coordinates or a single index.');
                 
             end
-            
-
-                        
                         
             res = calllib('nd2readsdk', 'Lim_FileGetImageData', obj.fileHandle, index, obj.pictureStructPtr);
             
@@ -494,11 +503,16 @@ classdef ND2reader < handle
             
             pImageData = obj.pictureStructPtr.pImageData;
                         
-            I = pImageData;
-            I = reshape(I, obj.sizeC, obj.width, obj.height);
+            Itmp = pImageData;
+            Itmp = reshape(Itmp, obj.sizeC, obj.width, obj.height);  
             
-            %Swap the order of the matrix to be height x width x channel
-            I = permute(I, [2, 3, 1]);
+            %Note: Image is rotated and flipped and the order is (channel x
+            %width, height). There's probably a better way to do this but
+            %this works for now.
+            I = zeros(obj.height, obj.width, obj.sizeC, 'uint16');
+            for iC = 1:size(Itmp, 1)
+                I(:, :, iC) = flipud(rot90(reshape(Itmp(iC, :, :), obj.width, obj.height)));
+            end
 
         end
         
@@ -519,12 +533,13 @@ classdef ND2reader < handle
             %
             %  See also: getImage           
             
-            %Check if iXY is provided. If not, default to 1.
+            %Check if iXY is provided.
             if numel(varargin) == 1
-                iXY = varargin{1};
-            elseif numel(varargin) == 0
-                iXY = 1;
-            else
+                %This is to provide compatibility with BioformatsImage (would
+                %be better to get rid of it)
+                obj.series = varargin{1};
+                
+            elseif numel(varargin) > 1
                 error('ND2reader:getPlane:InvalidXYcoord', ...
                     'Invalid XY coordinate. Expected a single number');                
             end
@@ -543,8 +558,10 @@ classdef ND2reader < handle
                 iC = channel;
             end            
             
+
+            
             %Get the full image
-            I = getImage(obj, iZ, iT, iXY);
+            I = getImage(obj, iZ, iT, obj.series);
             
             %Return requested subset of channels
             I = I(:, :, iC);
@@ -881,6 +898,14 @@ classdef ND2reader < handle
             
             %Deallocate the pointer
             calllib('nd2readsdk', 'Lim_FileFreeString', strPtr);
+            
+        end
+        
+        function [ts, tsunits] = getTimestamps(obj, varargin)
+            %GETTIMESTAMPS  Get the timestamp of each frame
+            
+            ts = (1:obj.sizeT) * getTimeLoopPeriod(obj);
+            tsunits = 's';
             
         end
         
