@@ -971,9 +971,9 @@ classdef ND2reader < handle
             
             %Set default XY position to 1. This is to maintain
             %compatibility with the BioFormatsImage toolbox.
-            if nargin == 4
+            if nargin < 4
                 iXY = 1;                
-            end            
+            end
             
             %Reorder the coordinates
             coords = zeros(1, numel(obj.loopOrder));
