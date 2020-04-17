@@ -903,12 +903,24 @@ classdef ND2reader < handle
         
         function [ts, tsunits] = getTimestamps(obj, varargin)
             %GETTIMESTAMPS  Get the timestamp of each frame
+            %
+            %  [TS, UNITS] = GETTIMESTAMPS(OBJ, iZ, iC);
             
-            ts = (1:obj.sizeT) * getTimeLoopPeriod(obj);
+            iZ = varargin{1};
+            iC = varargin{2};
+            iXY = obj.series;
+                
+            ts = zeros(1, obj.sizeT);
             tsunits = 's';
-            
+            for iT = 1:obj.sizeT
+                index = getSeqIndexFromCoords(obj, iZ, iT, iXY);
+                
+                framedata = jsondecode(readMetadata(obj, 'frame', index));
+                
+                ts(iT) = framedata.channels(iC).time.relativeTimeMs / 1000;            
+            end
         end
-        
+               
     end
     
     methods (Access = private)
