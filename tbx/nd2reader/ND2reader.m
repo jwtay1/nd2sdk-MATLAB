@@ -400,9 +400,7 @@ classdef ND2reader < handle
             
             %Destroy any open pictures
             if ~isempty(obj.pictureStructPtr)
-                
                 calllib('nd2readsdk', 'Lim_DestroyPicture', obj.pictureStructPtr);
-                
                 obj.pictureStructPtr = [];
             end
             
