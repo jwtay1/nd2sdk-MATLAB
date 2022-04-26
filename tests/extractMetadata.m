@@ -2,7 +2,8 @@
 clearvars
 clc
 
-fn = 'D:\Projects\nd2sdk-matlab\test.nd2';
+fn = 'D:\Projects\2019Dec Kralj Diauxic PEC\Data\SDC006\20210502_SDC006.nd2';
+%fn = 'D:\Projects\nd2sdk-matlab\test.nd2';
 %fn = 'D:\Projects\2020Feb Photodamage\data\ChannelRed,Cy5,RFP_Seq0000.nd2';
 %fn = 'D:\Projects\2019Dec Kralj Diauxic PEC\Data\20200317 100x_lacZ_glugal\20200317_100x_lacZ_glugal.nd2';
 
