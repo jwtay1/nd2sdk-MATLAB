@@ -179,7 +179,7 @@ classdef ND2reader < handle
                 
                 %Look for a 'TimeLoop' type
                 types = {obj.experimentParams.type};
-                loc = ismember(types, 'TimeLoop');
+                loc = ismember(types, {'TimeLoop', 'NETimeLoop'});
                 
                 if any(loc)
                     
@@ -688,7 +688,7 @@ classdef ND2reader < handle
                 
             end
             
-            loc = ismember(obj.loopOrder, 'TimeLoop');
+            loc = ismember(obj.loopOrder, {'TimeLoop', 'NETimeLoop'});
             
             if ~isempty(loc)
                 
@@ -1000,7 +1000,7 @@ classdef ND2reader < handle
                         
                         coords(ii) = iZ;
                         
-                    case 'TimeLoop'
+                    case {'TimeLoop', 'NETimeLoop'}
                         
                         coords(ii) = iT;
                 end
