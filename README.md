@@ -1,13 +1,37 @@
-# ND2SDK for MATLAB
+# ND2 Reader for MATLAB
 
-This project is to build a wrapper for the ND2 SDK to read proprietary 
-Nikon microscope images. The SDK is available from Laboratory Imaging (see 
-instructions below).
+Welcome to the ND2 Reader MATLAB Toolbox Project! 
+
+The purpose of this project is to develop a MATLAB toolbox to read ND2 images from Nikon microscopes. This project utilizes the official ND2 SDK from Nikon Laboratory Imaging.
 
 ## Getting started
 
+Visit the [releases](https://github.com/jwtay1/nd2sdk-MATLAB/releases) page and download the latest version. 
+
+Note that the toolbox currently only supports 64-bit Windows. However, other version should be supported by changing the libraries (see below).
+
+### Support for 32-bit Windows, Linux, and Mac
+
+The code should support other operating systems. However, you will need to download and install the drivers from https://www.nd2sdk.com/.
+
 > These instructions were written for 64-bit Windows. However, I expect that
-> it should be applicable to other operating systems.
+> it should be applicable to other operating systems. The libraries will have a different extension
+> e.g. on Linux they are .so files and on Mac they are .dylib files.
+
+1. Go to https://www.nd2sdk.com/
+   - If you are a new user, select "New user" and proceed to create a new account
+   - Otherwise, log in to your account
+2. Download the SDK files for your operating system
+   - At time of writing (2022-05-26), **SDK v1.7.2.0** is available.
+3. Extract the zip file to a temporary directory, then run the installer.
+4. Navigate to the ``nd2readsdk-shared\bin`` sub-directory. There should be a number of .DLL files in the directory. Copy all the files from this directory to the ``ext`` directory.
+5. In the ``include`` folder, copy the file ``Nd2ReadSdk.h`` to the ``ext`` directory.
+6. Check that everything is running by reading the demo file
+   ```matlab
+   nd2reader_demo
+   ```
+
+## Development
 
 1. In Git, clone the repository:
 ```
@@ -19,23 +43,11 @@ cd nd2reader-matlab
 p = genpath('nd2reader');
 addpath(p)
 ```
-3. Go to https://www.nd2sdk.com/
-   - If you are a new user, select "New user" and proceed to create a new account
-   - Otherwise, log in to your account
-4. Download the SDK files for your operating system
-   - At time of writing (2020-03-13), **SDK v1.1.0.0** is available for 32-bit and 64-bit windows, and 64-bit Linux
-5. Extract the zip file to a temporary directory
-6. Navigate to the ``Nd2ReadSdkStatic 1.1.0.0\bin`` sub-directory. There should be a number of .DLL files in the directory.
-7. Copy the following to the files to the ``ext`` directory:
-   - Nd2ReadSdk.h   
-   - nd2readsdk.dll
-   - limfile.dll   
-   - tiff.dll
-8. Check that everything is running by reading the demo file
+3. Run the demo file
 ```
   nd2reader_demo
 ```
 
 ## Issues
 
-Please report issues using the [Issue Tracker](https://gitlab.com/jwtay/nd2reader-matlab/-/issues).
+Please report issues using the [Issue Tracker](https://github.com/jwtay1/nd2sdk-MATLAB/issues).
