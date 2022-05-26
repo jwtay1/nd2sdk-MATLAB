@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration file="D:\Projects\nd2sdk-matlab\code\build\ND2 Reader.prj" location="D:\Projects\nd2sdk-matlab\code\build" name="ND2 Reader" target="target.toolbox" target-name="Package Toolbox">
+  <configuration file="D:\Projects\Toolboxes\nd2sdk-matlab\code\build\ND2 Reader.prj" location="D:\Projects\Toolboxes\nd2sdk-matlab\code\build" name="ND2 Reader" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>ND2 Reader</param.appname>
     <param.authnamewatermark>Jian Wei Tay</param.authnamewatermark>
     <param.email>jian.tay@colorado.edu</param.email>
@@ -78,20 +78,20 @@ Note: The currently released SDK only has Linux and Windows libraries.</param.de
       <param.additional.sw.linux.url />
     </unset>
     <fileset.rootdir>
-      <file>D:\Projects\nd2sdk-matlab\code\tbx</file>
+      <file>D:\Projects\Toolboxes\nd2sdk-matlab\code\tbx</file>
     </fileset.rootdir>
     <fileset.rootfiles>
-      <file>D:\Projects\nd2sdk-matlab\code\tbx\nd2reader</file>
+      <file>D:\Projects\Toolboxes\nd2sdk-matlab\code\tbx\nd2reader</file>
     </fileset.rootfiles>
     <fileset.depfun.included />
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="ND2 Reader.mltbx" optional="false">D:\Projects\nd2sdk-matlab\code\build\ND2 Reader.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="ND2 Reader.mltbx" optional="false">D:\Projects\Toolboxes\nd2sdk-matlab\code\build\ND2 Reader.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2021a</root>
+      <root>C:\Program Files\MATLAB\R2021b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="neuralnetwork" />
