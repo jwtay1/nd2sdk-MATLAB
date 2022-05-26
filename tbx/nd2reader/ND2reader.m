@@ -919,6 +919,23 @@ classdef ND2reader < handle
             end
         end
                
+        function s = saveobj(obj)
+
+            %Save the filename
+            s.Filename = obj.filename;
+
+        end
+
+    end
+
+    methods (Static)
+
+        function obj = loadobj(s)
+
+            obj = ND2reader(s.Filename);
+
+        end
+
     end
     
     methods (Access = private)
